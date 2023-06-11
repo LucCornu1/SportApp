@@ -101,5 +101,30 @@ namespace SportApplication.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<IEnumerable<TournamentEvents_ViewModel>> GetTournamentEventsAsync(int id)
+        {
+			IEnumerable<Event> results = await _appDbContext.Events
+                .Where(e => e.TournamentId == id)
+				.ToListAsync();
+
+            if (!results.Any())
+			{
+				return new List<TournamentEvents_ViewModel>();
+			}
+
+			string tournamentTitle = (from Tournament in _appDbContext.Tournaments
+									  where Tournament.Id == id
+                                      select Tournament.Title).First();
+
+            List<TournamentEvents_ViewModel> TournamentEventsList = new List<TournamentEvents_ViewModel>();
+
+            foreach (var r in results)
+			{
+				TournamentEventsList.Add(new TournamentEvents_ViewModel(r, tournamentTitle));
+			}
+
+            return TournamentEventsList;
+        }
     }
 }

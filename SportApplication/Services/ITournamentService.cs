@@ -19,5 +19,6 @@ namespace SportApplication.Services
 		Task CreateEventAsync(int TournamentId, string Title, DateTime startingDate, DateTime endingDate);
 		Task<IEnumerable<Tournament_ViewModel>?> GetNextTournamentsAsync();
 		Task<List<(int id, string name)>> GetSportsAsync();
-	}
+        Task<IEnumerable<TournamentEvents_ViewModel>> GetTournamentEventsAsync(int id);
+    }
 }

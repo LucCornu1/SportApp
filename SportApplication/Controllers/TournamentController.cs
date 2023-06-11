@@ -54,6 +54,13 @@ namespace SportApplication.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+		public async Task<IActionResult> Details(int id)
+		{
+			IEnumerable<TournamentEvents_ViewModel> tournamentEventList = await _tournamentService.GetTournamentEventsAsync(id);
+
+			return View(tournamentEventList);
+		}
+
 		[HttpGet("{id:int}/CreateEvent")]
 		public async Task<IActionResult> CreateEvent()
 		{

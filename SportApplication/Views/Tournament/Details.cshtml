@@ -1,10 +1,10 @@
-﻿@model IEnumerable<SportApplication.Models.Tournament_ViewModel>
+﻿@model IEnumerable<SportApplication.Models.TournamentEvents_ViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "TournamentEvents";
 }
 
-<h1>Index</h1>
+<h1>TournamentEvents</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -19,13 +19,16 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StartingDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EndingDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SportName)
+                @Html.DisplayNameFor(model => model.TournamentTitle)
             </th>
             <th></th>
         </tr>
@@ -40,16 +43,20 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.StartingDate)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EndingDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SportName)
+                @Html.DisplayFor(modelItem => item.TournamentTitle)
             </td>
             <td>
-                @Html.ActionLink("See events", "Details", new { item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>

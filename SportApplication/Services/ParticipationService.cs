@@ -6,7 +6,6 @@ using SportApplication.Data;
 using SportApplication.Data.Models;
 using SportApplication.Models;
 using System.Security.Claims;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SportApplication.Services
 {
@@ -23,13 +22,13 @@ namespace SportApplication.Services
 
         public async Task<List<GetUserEvents_ViewModel>> GetUserParticipationsAsync()
         {
+            List<GetUserEvents_ViewModel> UserEventsList = new List<GetUserEvents_ViewModel>();
+
             var userId = _accessor.HttpContext.User.FindFirst("Id").Value;
 
             var userEventsId = from Participation in _appDbContext.Participations
-                        where Participation.UserId == int.Parse(userId)
-                        select Participation.EventId;
-
-            List<GetUserEvents_ViewModel> UserEventsList = new List<GetUserEvents_ViewModel>();
+                               where Participation.UserId == int.Parse(userId)
+                               select Participation.EventId;            
 
             if (userEventsId is null)
             {
