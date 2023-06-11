@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IParticipationService, ParticipationService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddHttpContextAccessor();
 // ** Add service for connection through cookies

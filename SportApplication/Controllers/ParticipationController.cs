@@ -24,9 +24,9 @@ namespace SportApplication.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(int id)
         {
-            await _participationService.CreateUserParticipationAsync(1);
+            await _participationService.CreateUserParticipationAsync(id);
             return RedirectToAction("Index");
         }
 

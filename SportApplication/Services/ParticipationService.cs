@@ -24,11 +24,11 @@ namespace SportApplication.Services
         {
             List<GetUserEvents_ViewModel> UserEventsList = new List<GetUserEvents_ViewModel>();
 
-            var userId = _accessor.HttpContext.User.FindFirst("Id").Value;
+            string userId = _accessor.HttpContext.User.FindFirst("Id").Value;
 
-            var userEventsId = from Participation in _appDbContext.Participations
-                               where Participation.UserId == int.Parse(userId)
-                               select Participation.EventId;            
+            IQueryable<int> userEventsId = from Participation in _appDbContext.Participations
+                                           where Participation.UserId == int.Parse(userId)
+                                           select Participation.EventId;            
 
             if (userEventsId is null)
             {
@@ -37,9 +37,9 @@ namespace SportApplication.Services
             
             foreach(var userEventId in userEventsId)
             {
-                var result = from Event in _appDbContext.Events
-                             where Event.Id == userEventId
-                             select Event;
+                IQueryable<Event> result = from Event in _appDbContext.Events
+                                           where Event.Id == userEventId
+                                           select Event;
 
                 UserEventsList.Add(new GetUserEvents_ViewModel(result.First(), userEventId));
             }
@@ -49,11 +49,11 @@ namespace SportApplication.Services
 
         public async Task DeleteUserParticipationAsync(GetUserEvents_ViewModel userEvent)
         {
-            var userId = _accessor.HttpContext.User.FindFirst("Id").Value;
+            string userId = _accessor.HttpContext.User.FindFirst("Id").Value;
 
-            var participation = from Participation in _appDbContext.Participations
-                                where Participation.EventId == userEvent.ParticipationId
-                                select Participation;
+            IQueryable<Participation> participation = from Participation in _appDbContext.Participations
+                                                      where Participation.EventId == userEvent.ParticipationId
+                                                      select Participation;
 
             participation = participation.Where(x => x.UserId == int.Parse(userId));
 
@@ -63,12 +63,13 @@ namespace SportApplication.Services
 
         public async Task CreateUserParticipationAsync(int id)
         {
-            var userId = _accessor.HttpContext.User.FindFirst("Id").Value;
+            string userId = _accessor.HttpContext.User.FindFirst("Id").Value;
 
             await _appDbContext.Participations.AddAsync(new Participation
             {
                 EventId = id,
-                UserId = int.Parse(userId)
+                UserId = int.Parse(userId),
+                Rank = 0
             });
 
             await _appDbContext.SaveChangesAsync();
