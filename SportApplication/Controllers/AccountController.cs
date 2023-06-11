@@ -32,9 +32,9 @@ namespace SportApplication.Controllers
 
 				return RedirectToAction("Index", "Home");
 			} 
-			catch (Exception ex)
+			catch (Exception e)
 			{
-				ModelState.AddModelError(string.Empty, ex.Message); // Return an error to a specific part of a form
+				ModelState.AddModelError(string.Empty, e.Message); // Return an error to a specific part of a form
 				return View();
 			}
 			
@@ -44,6 +44,33 @@ namespace SportApplication.Controllers
 		{
 			await _accountService.LogoutAsync();
 			return RedirectToAction("Index", "Home");
+		}
+
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Register(AddUser_ViewModel model)
+		{
+			try
+			{
+				if (!ModelState.IsValid)
+				{
+					return View();
+				}
+
+                await _accountService.RegisterAsync(model);
+                return RedirectToAction("Index", "Home");
+            }
+			catch (Exception e)
+			{
+				ModelState.AddModelError (string.Empty, e.Message);
+				return View();
+			}
+
+			
 		}
 	}
 }

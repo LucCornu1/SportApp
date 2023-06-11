@@ -28,9 +28,9 @@ namespace SportApplication.Data
 					Database.Migrate();
 				}
 			}
-			catch(Exception)
+			catch(Exception e)
 			{
-
+				Console.WriteLine(e);
 			}
 			
         }
@@ -58,8 +58,7 @@ namespace SportApplication.Data
 						Email = "admin@sportapp.com",
 						Firstname = "Super",
 						Lastname = "Admin",
-						HashedPassword = "F2D81A260DEA8A100DD517984E53C56A7523D96942A834B9CDC249BD4E8C7AA9",
-						IsAdmin = true
+						HashedPassword = "F2D81A260DEA8A100DD517984E53C56A7523D96942A834B9CDC249BD4E8C7AA9"
 					}
 				);
 

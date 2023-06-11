@@ -7,7 +7,7 @@ using SportApplication.Data;
 
 #nullable disable
 
-namespace SportApplication.Data.Migrations
+namespace SportApplication.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -209,9 +209,6 @@ namespace SportApplication.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -228,7 +225,6 @@ namespace SportApplication.Data.Migrations
                             Firstname = "Super",
                             Gender = 0,
                             HashedPassword = "F2D81A260DEA8A100DD517984E53C56A7523D96942A834B9CDC249BD4E8C7AA9",
-                            IsAdmin = true,
                             Lastname = "Admin"
                         });
                 });

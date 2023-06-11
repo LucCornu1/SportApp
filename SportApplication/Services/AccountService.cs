@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using SportApplication.Data;
+using SportApplication.Data.Models;
 using SportApplication.Infrastructure;
+using SportApplication.Models;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -50,19 +52,18 @@ namespace SportApplication.Services
 				claims.Add(new Claim(ClaimTypes.Role, role.Name));
 			}
 
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-			var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
 
-			var principal = new ClaimsPrincipal(identity);
-
-			await _accessor.HttpContext.SignInAsync(
-				CookieAuthenticationDefaults.AuthenticationScheme,
-				principal,
-				new AuthenticationProperties()
-				{
-					IsPersistent = rememberMe
-				});
-		}
+            await _accessor.HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                principal,
+                new AuthenticationProperties()
+                {
+                    IsPersistent = rememberMe
+                });
+        }
 
 		public async Task LogoutAsync()
 		{
@@ -71,5 +72,50 @@ namespace SportApplication.Services
 				await _accessor.HttpContext.SignOutAsync();
 			}
 		}
-	}
+
+		internal async Task CheckEmail(string email)
+		{
+			var user = await _dbContext.Users
+				.FirstOrDefaultAsync(x => x.Email == email);
+
+            if (user != null)
+			{
+				throw new Exception("User already exists");
+			}
+        }
+
+        public async Task RegisterAsync(AddUser_ViewModel model)
+        {
+			await CheckEmail(model.Email);
+
+			try
+			{
+                List<Role> roles = new List<Role>();
+                var role = await _dbContext.Roles.FindAsync(1);
+
+				if (role != null)
+				{
+					roles.Add(role);
+				}
+                
+                await _dbContext.Users
+					.AddAsync(new User
+					{
+						Email = model.Email,
+						HashedPassword = await Helpers.HashPasswordAsync(model.Password),
+						Firstname = model.Firstname,
+						Lastname = model.Lastname,
+						Roles = roles
+					});
+
+				await _dbContext.SaveChangesAsync();
+
+				await LoginAsync(model.Email, model.Password, false);
+            }
+			catch (Exception e)
+			{
+                throw e;
+            }
+        }
+    }
 }

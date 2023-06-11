@@ -17,6 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // ** Add the service for dependcy injection
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IParticipationService, ParticipationService>();
 
 builder.Services.AddHttpContextAccessor();
 // ** Add service for connection through cookies

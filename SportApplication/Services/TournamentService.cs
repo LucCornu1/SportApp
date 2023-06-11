@@ -42,7 +42,7 @@ namespace SportApplication.Services
 		internal bool CreateTournamentDataIsValid(int sportId, string title, DateTime startingDate, DateTime endingDate)
 		{
 			// Validate Sport Id
-			if (sportId > 0 || !_appDbContext.Sports.Any(s => s.Id == sportId))
+			if (sportId < 0 || !_appDbContext.Sports.Any(s => s.Id == sportId))
 			{
 				return false;
 			}
@@ -68,22 +68,13 @@ namespace SportApplication.Services
 			return true;
 		}
 
-		public async Task CreateEventAsync(int TournamentId, string Title, DateTime startingDate, DateTime endingDate)
-		{
-			throw new NotImplementedException();
-		}
 
-		async Task<IEnumerable<Tournament_ViewModel>?> ITournamentService.GetNextTournamentsAsync()
+        public async Task<IEnumerable<Tournament_ViewModel>?> GetNextTournamentsAsync()
 		{
 			var itemList = await _appDbContext.Tournaments
 				.Include(t => t.Sport)
-				.Where(t => t.StartingDate.Date > DateTime.Now.Date)
+				.Where(t => t.StartingDate > DateTime.Now)
 				.ToListAsync();
-
-			if (itemList == null)
-			{
-				return null;
-			}
 
 			var result = itemList.Select(t => new Tournament_ViewModel()
 			{
@@ -105,5 +96,10 @@ namespace SportApplication.Services
 
 			return result;
 		}
-	}
+
+        public Task CreateEventAsync(int TournamentId, string Title, DateTime startingDate, DateTime endingDate)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

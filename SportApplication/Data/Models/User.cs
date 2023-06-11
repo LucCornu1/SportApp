@@ -28,9 +28,6 @@ namespace SportApplication.Data.Models
 
         public DateTime? Birthdate { get; set; }
 
-        [JsonIgnore]
-        public bool IsAdmin { get; set; } = false;
-
         public List<Role> Roles { get; set; } 
             = new List<Role>();
         

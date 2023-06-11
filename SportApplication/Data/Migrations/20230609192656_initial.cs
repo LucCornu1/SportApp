@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace SportApplication.Data.Migrations
+namespace SportApplication.Migrations
 {
     /// <inheritdoc />
     public partial class initial : Migration
@@ -66,8 +66,7 @@ namespace SportApplication.Data.Migrations
                     Lastname = table.Column<string>(type: "TEXT", nullable: false),
                     HashedPassword = table.Column<string>(type: "TEXT", nullable: false),
                     Gender = table.Column<int>(type: "INTEGER", nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Birthdate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -199,8 +198,8 @@ namespace SportApplication.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Birthdate", "Email", "Firstname", "Gender", "HashedPassword", "IsAdmin", "Lastname" },
-                values: new object[] { 1, null, "admin@sportapp.com", "Super", 0, "F2D81A260DEA8A100DD517984E53C56A7523D96942A834B9CDC249BD4E8C7AA9", true, "Admin" });
+                columns: new[] { "Id", "Birthdate", "Email", "Firstname", "Gender", "HashedPassword", "Lastname" },
+                values: new object[] { 1, null, "admin@sportapp.com", "Super", 0, "F2D81A260DEA8A100DD517984E53C56A7523D96942A834B9CDC249BD4E8C7AA9", "Admin" });
 
             migrationBuilder.InsertData(
                 table: "UserRole",
