@@ -5,15 +5,15 @@ using System.Text;
 
 namespace SportApplication.Infrastructure
 {
-	internal static class Helpers
+	public static class Helpers
 	{
-		internal static async Task<bool> IsPasswordCorrectAsync(string password, string hash)
+		public static async Task<bool> IsPasswordCorrectAsync(string password, string hash)
 		{
 			var result = hash.Equals(await HashPasswordAsync(password));
 			return result;
 		}
 
-		internal static async Task<string> HashPasswordAsync(string password)
+		public static async Task<string> HashPasswordAsync(string password)
 		{
 			if (string.IsNullOrEmpty(password))
 				return string.Empty;

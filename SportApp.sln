@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportApplication", "SportApplication\SportApplication.csproj", "{277C39F7-E8A5-4EEF-88F5-2C86342BF67D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{808D3C00-AFFD-4401-9B3B-946A4D0CE3B1} = {808D3C00-AFFD-4401-9B3B-946A4D0CE3B1}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportApplication.Tests", "SportApplication.Tests\SportApplication.Tests.csproj", "{5AFE3A01-0704-44BB-994E-3782B8D5E89E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportApplication.Tests", "SportApplication.Tests\SportApplication.Tests.csproj", "{5AFE3A01-0704-44BB-994E-3782B8D5E89E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{808D3C00-AFFD-4401-9B3B-946A4D0CE3B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{5AFE3A01-0704-44BB-994E-3782B8D5E89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AFE3A01-0704-44BB-994E-3782B8D5E89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AFE3A01-0704-44BB-994E-3782B8D5E89E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{808D3C00-AFFD-4401-9B3B-946A4D0CE3B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{808D3C00-AFFD-4401-9B3B-946A4D0CE3B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{808D3C00-AFFD-4401-9B3B-946A4D0CE3B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{808D3C00-AFFD-4401-9B3B-946A4D0CE3B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
